@@ -20,13 +20,12 @@ void debug_vector(vector<T> vec)
 struct Vertex
 {
     int id;
-    map<int, int> to;
+    vector<int> to;
 
     Vertex(int i, int t)
     {
         id = i;
-        for (int i = 0; i < t; i++)
-            to[i] = -1;
+        to.resize(t);
     }
 };
 
@@ -49,6 +48,11 @@ int main(int argc, char *argv[])
     }
     debug_vector(substrs);
 
+    // 頂点を設定
+    vtxs.resize(substrs.size());
+    for (int i = 0; i < vtxs.size(); i++)
+        vtxs[i].id = i;
+
     // 入力文字集合から入力されうる文字をつなげて、部分文字列を作成
     // 部分文字列が登録されていたものなら、頂点を追加
     // 登録されていなかったら、文字列の前から順に探索して、長さが最も大きい部分文字列へのpathを登録
@@ -64,9 +68,20 @@ int main(int argc, char *argv[])
             // 部分文字列が合致したら、頂点を登録
             if (strmap.count(attempt))
             {
-                vtxs.push_back(Vertex{
-                    i,
-                });
+                vtxs[i].to[j] = strmap[attempt];
+            }
+            else
+            {
+                // そうでないなら、直前の一致する部分文字列へpathを返す
+                reverse(attempt.begin(), attempt.end());
+                for (int k = 0; k < attempt.size(); k++)
+                {
+                    string return_str = attempt.substr(0, k);
+                    if (strmap.count(return_str))
+                    {
+                        vtxs[i].to[j] = strmap[return_str];
+                    }
+                }
             }
         }
     }
