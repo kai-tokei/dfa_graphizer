@@ -7,6 +7,7 @@
 
 using namespace std;
 
+// 配列をデバッグする
 template <typename T>
 void debug_vector(vector<T> vec)
 {
@@ -28,6 +29,17 @@ struct Vertex
         to.resize(t);
     }
 };
+
+ostream &operator<<(ostream &os, const Vertex vtx)
+{
+    for (int i = 0; i < vtx.to.size(); i++)
+    {
+        os << "q_" << to_string(vtx.id) << " -> " << "q_" << to_string(vtx.to[i]);
+        os << "[label=" << to_string(i) << "]";
+        os << endl;
+    }
+    return os;
+}
 
 int main(int argc, char *argv[])
 {
