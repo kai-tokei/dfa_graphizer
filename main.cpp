@@ -1,6 +1,7 @@
 #include <iostream>
 #include <string>
 #include <unistd.h>
+#include <vector>
 #include <map>
 
 using namespace std;
@@ -44,6 +45,7 @@ int main(int argc, char *argv[])
         substrs.push_back(target.substr(0, i));
         strmap[substrs.back()] = i;
     }
+    debug_vector(substrs);
 
     // 入力文字集合から入力されうる文字をつなげて、部分文字列を作成
     // 部分文字列が登録されていたものなら、頂点を追加
