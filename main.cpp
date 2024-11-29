@@ -22,31 +22,29 @@ int main(int argc, char *argv[])
 
     string dot_code = dot_header; // dot言語のコード
 
-    // 頂点のtable (id, from, to)
-    vector<Vertex> vtxs(target.size(), Vertex(0, sigma.size()));
-    for (int i = 0; i < vtxs.size(); i++)
-        vtxs[i].id = i;
-
     // targetから部分文字列を作成し、tableに保存
     // mapに、部分文字列をiとともに保存
     vector<string> substrs;
     map<string, int> strmap;
-    for (int i = 0; i < target.size(); i++)
+    for (int i = 0; i < target.size() + 1; i++)
     {
         substrs.push_back(target.substr(0, i));
         strmap[substrs.back()] = i;
     }
     debug_vector(substrs);
 
+    // 頂点のtable
+    vector<Vertex> vtxs(substrs.size(), Vertex(0, sigma.size()));
+    for (int i = 0; i < vtxs.size(); i++)
+        vtxs[i].id = i;
+
     // ノードをDotコードに登録
-    dot_code += "    " + gen_node_dot(0, "0", "doublecircle") + "\n";
     dot_code += "\n";
-    for (int i = 1; i < vtxs.size(); i++)
+    for (int i = 0; i < vtxs.size() - 1; i++)
     {
         dot_code += "    " + gen_node_dot(i, to_string(i)) + "\n";
     }
-
-    // input
+    dot_code += "    " + gen_node_dot(vtxs.size() - 1, to_string(vtxs.size() - 1), "doublecircle") + "\n";
     dot_code += "\n    input -> q_0 [periphries=2];\n";
 
     // 入力文字集合から入力されうる文字をつなげて、部分文字列を作成
@@ -65,14 +63,14 @@ int main(int argc, char *argv[])
             if (strmap.count(attempt))
             {
                 vtxs[i].to[j] = strmap[attempt];
+                cout << i << ". " << attempt << endl;
             }
             else
             {
                 // そうでないなら、直前の一致する部分文字列へpathを返す
-                reverse(attempt.begin(), attempt.end());
-                for (int k = 0; k < attempt.size(); k++)
+                for (int k = 0; k < attempt.size() + 1; k++)
                 {
-                    string return_str = attempt.substr(0, k);
+                    string return_str = attempt.substr(attempt.size() - k, k);
                     if (strmap.count(return_str))
                     {
                         vtxs[i].to[j] = strmap[return_str];
