@@ -1,4 +1,5 @@
 #pragma once
+
 #include <iostream>
 #include <string>
 #include <unistd.h>
@@ -8,11 +9,13 @@
 #include <fstream>
 #include <map>
 
+#include "./vertex.cpp"
+
 using namespace std;
 
 // 配列をデバッグする
 template <typename T>
-void debug_vector(vector<T> vec)
+void debug_vector(vector<T> &vec)
 {
     cout << "debug: ";
     for (const auto &v : vec)
@@ -53,4 +56,10 @@ void write_file(string path, string content)
     }
 
     file << content << endl;
+}
+
+// Dotのノードを生成する
+string gen_node_dot(int id, string name, string shape = "circle")
+{
+    return "q_" + to_string(id) + "[label=<q<sub>" + name + "</sub>>,shape=" + shape + "];";
 }

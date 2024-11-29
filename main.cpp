@@ -20,7 +20,7 @@ int main(int argc, char *argv[])
     string dot_header = read_file("dot_header.txt"); // dotファイルのheader
     string dot_footer = read_file("dot_footer.txt"); // dotファイルのfooter
 
-    string dot_txt = dot_header; // dot言語のコード
+    string dot_code = dot_header; // dot言語のコード
 
     // 頂点のtable (id, from, to)
     vector<Vertex> vtxs(target.size(), Vertex(0, sigma.size()));
@@ -38,6 +38,17 @@ int main(int argc, char *argv[])
     }
     debug_vector(substrs);
 
+    // ノードをDotコードに登録
+    dot_code += "    " + gen_node_dot(0, "0", "doublecircle") + "\n";
+    dot_code += "\n";
+    for (int i = 1; i < vtxs.size(); i++)
+    {
+        dot_code += "    " + gen_node_dot(i, to_string(i)) + "\n";
+    }
+
+    // input
+    dot_code += "\n    input -> q_0 [periphries=2];\n";
+
     // 入力文字集合から入力されうる文字をつなげて、部分文字列を作成
     // 部分文字列が登録されていたものなら、頂点を追加
     // 登録されていなかったら、文字列の前から順に探索して、長さが最も大きい部分文字列へのpathを登録
@@ -53,15 +64,6 @@ int main(int argc, char *argv[])
             // 部分文字列が合致したら、頂点を登録
             if (strmap.count(attempt))
             {
-                // // attemptが期待文字列と完全に一致していたら、受容ノードへpathを繋ぐ
-                // if (attempt == substrs.back())
-                // {
-                //     vtxs[i].to[j] = 0;
-                // }
-                // else
-                // {
-                //     vtxs[i].to[j] = strmap[attempt];
-                // }
                 vtxs[i].to[j] = strmap[attempt];
             }
             else
@@ -83,10 +85,10 @@ int main(int argc, char *argv[])
     // 頂点tableの内容をlistする
     for (int i = 0; i < vtxs.size(); i++)
     {
-        dot_txt += vtxs[i].to_str();
+        dot_code += vtxs[i].to_str();
     }
-    dot_txt += dot_footer;
-    write_file("sample.dot", dot_txt);
+    dot_code += dot_footer;
+    write_file("sample.dot", dot_code);
 
     return 0;
 }
