@@ -35,7 +35,7 @@ ostream &operator<<(ostream &os, const Vertex vtx)
 {
     for (int i = 0; i < vtx.to.size(); i++)
     {
-        os << "q_" << to_string(vtx.id) << " -> " << "q_" << to_string(vtx.to[i]);
+        os << "\tq_" << to_string(vtx.id) << " -> " << "q_" << to_string(vtx.to[i]);
         os << "[label=" << to_string(i) << "]";
         os << endl;
     }
@@ -73,7 +73,7 @@ int main(int argc, char *argv[])
         // sigma の文字を連結
         for (int j = 0; j < sigma.size(); j++)
         {
-            string attempt = crt_str + sigma[i];
+            string attempt = crt_str + sigma[j];
 
             // 部分文字列が合致したら、頂点を登録
             if (strmap.count(attempt))
