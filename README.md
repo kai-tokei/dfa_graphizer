@@ -16,3 +16,5 @@
 ## 参考
 
 [Wikipedia 決定性有限オートマトン](https://ja.wikipedia.org/wiki/%E6%B1%BA%E5%AE%9A%E6%80%A7%E6%9C%89%E9%99%90%E3%82%AA%E3%83%BC%E3%83%88%E3%83%9E%E3%83%88%E3%83%B3)
+
+[ゼロから学ぶC++ ファイル操作](https://rinatz.github.io/cpp-book/ch05-02-file-operations/)
