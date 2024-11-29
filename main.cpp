@@ -2,6 +2,7 @@
 #include <string>
 #include <unistd.h>
 #include <vector>
+#include <numeric>
 #include <map>
 
 using namespace std;
@@ -19,12 +20,13 @@ void debug_vector(vector<T> vec)
 struct Vertex
 {
     int id;
-    int from;
-    int to;
+    map<int, int> to;
 
-    string to_str()
+    Vertex(int i, int t)
     {
-        return to_string(from) + " -> [ " + to_string(id) + " ] -> " + to_string(to);
+        id = i;
+        for (int i = 0; i < t; i++)
+            to[i] = -1;
     }
 };
 
@@ -50,6 +52,24 @@ int main(int argc, char *argv[])
     // 入力文字集合から入力されうる文字をつなげて、部分文字列を作成
     // 部分文字列が登録されていたものなら、頂点を追加
     // 登録されていなかったら、文字列の前から順に探索して、長さが最も大きい部分文字列へのpathを登録
+    for (int i = 0; i < target.size(); i++)
+    {
+        string crt_str = target.substr(0, i);
+
+        // sigma の文字を連結
+        for (int j = 0; j < sigma.size(); j++)
+        {
+            string attempt = crt_str + sigma[i];
+
+            // 部分文字列が合致したら、頂点を登録
+            if (strmap.count(attempt))
+            {
+                vtxs.push_back(Vertex{
+                    i,
+                });
+            }
+        }
+    }
 
     // 頂点tableの内容をlistする
 }
