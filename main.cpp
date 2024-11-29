@@ -121,7 +121,7 @@ int main(int argc, char *argv[])
         dot_txt += vtxs[i].to_str() + '\n';
     }
     dot_txt += dot_footer;
-    cout << dot_txt << endl;
+    write_file("sample.dot", dot_txt);
 
     return 0;
 }
