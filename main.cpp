@@ -3,6 +3,7 @@
 #include <unistd.h>
 #include <vector>
 #include <numeric>
+#include <algorithm>
 #include <map>
 
 using namespace std;
@@ -47,7 +48,9 @@ int main(int argc, char *argv[])
     string sigma = "01";         // 入力文字集合
 
     // 頂点のtable (id, from, to)
-    vector<Vertex> vtxs;
+    vector<Vertex> vtxs(target.size() + 1, Vertex(0, sigma.size()));
+    for (int i = 0; i < vtxs.size(); i++)
+        vtxs[i].id = i;
 
     // targetから部分文字列を作成し、tableに保存
     // mapに、部分文字列をiとともに保存
@@ -60,15 +63,10 @@ int main(int argc, char *argv[])
     }
     debug_vector(substrs);
 
-    // 頂点を設定
-    vtxs.resize(substrs.size() - 1);
-    for (int i = 0; i < vtxs.size(); i++)
-        vtxs[i] = Vertex(i, sigma.size());
-
     // 入力文字集合から入力されうる文字をつなげて、部分文字列を作成
     // 部分文字列が登録されていたものなら、頂点を追加
     // 登録されていなかったら、文字列の前から順に探索して、長さが最も大きい部分文字列へのpathを登録
-    for (int i = 0; i < target.size(); i++)
+    for (int i = 0; i < vtxs.size(); i++)
     {
         string crt_str = target.substr(0, i);
 
@@ -107,4 +105,10 @@ int main(int argc, char *argv[])
     }
 
     // 頂点tableの内容をlistする
+    for (const auto &v : vtxs)
+    {
+        cout << v;
+    }
+
+    return 0;
 }
