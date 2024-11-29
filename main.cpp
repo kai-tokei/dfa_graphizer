@@ -26,7 +26,7 @@ string get_file_text(string path)
     string line, out = "";
     while (getline(file, line))
     {
-        out += line;
+        out += line + '\n';
     }
     return out;
 }
@@ -41,6 +41,19 @@ struct Vertex
     {
         id = i;
         to.resize(t);
+    }
+
+    string to_str()
+    {
+        string out;
+        for (int i = 0; i < to.size(); i++)
+        {
+            out += '\t';
+            out += "q_" + to_string(id) + " -> " + "q_" + to_string(to[i]);
+            out += "[label=" + to_string(i) + "]";
+            out += "\n";
+        }
+        return out;
     }
 };
 
@@ -96,7 +109,7 @@ int main(int argc, char *argv[])
             // 部分文字列が合致したら、頂点を登録
             if (strmap.count(attempt))
             {
-                // 期待文字列と完全に一致していたら、受容ノードへのpathを繋ぐ
+                // attemptが期待文字列と完全に一致していたら、受容ノードへpathを繋ぐ
                 if (attempt == substrs.back())
                 {
                     vtxs[i].to[j] = 0;
@@ -123,10 +136,12 @@ int main(int argc, char *argv[])
     }
 
     // 頂点tableの内容をlistする
-    for (const auto &v : vtxs)
+    for (int i = 0; i < vtxs.size(); i++)
     {
-        cout << v;
+        dot_txt += vtxs[i].to_str() + '\n';
     }
+    dot_txt += dot_footer;
+    cout << dot_txt << endl;
 
     return 0;
 }
