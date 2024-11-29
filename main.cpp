@@ -49,9 +49,9 @@ int main(int argc, char *argv[])
     debug_vector(substrs);
 
     // 頂点を設定
-    vtxs.resize(substrs.size());
+    vtxs.resize(substrs.size() - 1);
     for (int i = 0; i < vtxs.size(); i++)
-        vtxs[i].id = i;
+        vtxs[i] = Vertex(i, sigma.size());
 
     // 入力文字集合から入力されうる文字をつなげて、部分文字列を作成
     // 部分文字列が登録されていたものなら、頂点を追加
@@ -68,7 +68,15 @@ int main(int argc, char *argv[])
             // 部分文字列が合致したら、頂点を登録
             if (strmap.count(attempt))
             {
-                vtxs[i].to[j] = strmap[attempt];
+                // 期待文字列と完全に一致していたら、受容ノードへのpathを繋ぐ
+                if (attempt == substrs.back())
+                {
+                    vtxs[i].to[j] = 0;
+                }
+                else
+                {
+                    vtxs[i].to[j] = strmap[attempt];
+                }
             }
             else
             {
