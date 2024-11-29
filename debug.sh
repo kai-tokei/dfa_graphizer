@@ -1,6 +1,6 @@
 #!/bin/sh
 
-rm build
+rm -rf build
 mkdir build
 cp dot_header.txt build/dot_header.txt
 cp dot_footer.txt build/dot_footer.txt
