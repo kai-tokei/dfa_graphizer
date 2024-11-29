@@ -1,6 +1,7 @@
 # DFA Graphizer
 
 ## 概要
+
 本プログラムは、DFAを描画する課題を解くために作成されました。
 
 現在は開発版のため、いくつかの変数の値がハードコーディングされています。
@@ -9,9 +10,11 @@
 私はオートマトンの初学者です。
 間違いや不適切な用語の使用がありましたら、コメントいただけると幸いです。
 
-## 環境
-- M1 MacBook Air Sonoma 14.7.1
-- g++ (Homebrew GCC 14.2.0) 14.2.0
+## 環境・使用ツール
+
+M1 MacBook Air Sonoma 14.7.1
+g++ (Homebrew GCC 14.2.0) 14.2.0
+[gitignore.io](https://www.toptal.com/developers/gitignore)
 
 ## 参考
 

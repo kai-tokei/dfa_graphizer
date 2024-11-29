@@ -7,29 +7,9 @@
 #include <fstream>
 #include <map>
 
+#include "./utils.cpp"
+
 using namespace std;
-
-// 配列をデバッグする
-template <typename T>
-void debug_vector(vector<T> vec)
-{
-    cout << "debug: ";
-    for (const auto v : vec)
-        cout << v << " ";
-    cout << endl;
-}
-
-// ファイルを読み込む
-string get_file_text(string path)
-{
-    ifstream file(path);
-    string line, out = "";
-    while (getline(file, line))
-    {
-        out += line + '\n';
-    }
-    return out;
-}
 
 // 頂点
 struct Vertex
@@ -73,8 +53,8 @@ int main(int argc, char *argv[])
     string target = "101101100"; // 入力期待文字列
     string sigma = "01";         // 入力文字集合
 
-    string dot_header = get_file_text("dot_header.txt"); // dotファイルのheader
-    string dot_footer = get_file_text("dot_footer.txt"); // dotファイルのfooter
+    string dot_header = read_file("dot_header.txt"); // dotファイルのheader
+    string dot_footer = read_file("dot_footer.txt"); // dotファイルのfooter
 
     string dot_txt = dot_header; // dot言語のコード
 
