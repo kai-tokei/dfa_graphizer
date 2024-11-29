@@ -4,6 +4,7 @@
 #include <vector>
 #include <numeric>
 #include <algorithm>
+#include <fstream>
 #include <map>
 
 using namespace std;
@@ -46,6 +47,9 @@ int main(int argc, char *argv[])
 {
     string target = "101101100"; // 入力期待文字列
     string sigma = "01";         // 入力文字集合
+
+    ifstream dot_header("dot_header.txt"); // dotファイルのheader
+    ifstream dot_footer("dot_footer.txt"); // dotファイルのfooter
 
     // 頂点のtable (id, from, to)
     vector<Vertex> vtxs(target.size() + 1, Vertex(0, sigma.size()));
