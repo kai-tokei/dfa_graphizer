@@ -4,10 +4,23 @@
 
 using namespace std;
 
+// 頂点
+struct Vertex
+{
+    int id;
+    int from;
+    int to;
+
+    string to_str()
+    {
+        return to_string(from) + " -> [ " + to_string(id) + " ] -> " + to_string(to);
+    }
+};
+
 int main(int argc, char *argv[])
 {
-    string target = argv[0]; // 入力期待文字列
-    string sigma = "01";     // 入力文字集合
+    string target = "101101100"; // 入力期待文字列
+    string sigma = "01";         // 入力文字集合
 
     // 頂点のtable (id, from, to)
 
