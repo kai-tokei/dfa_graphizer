@@ -13,3 +13,4 @@ dot -Tpng sample.dot > sample.png
 open sample.png
 
 cd ..
+less build/sample.dot

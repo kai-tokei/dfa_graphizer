@@ -8,45 +8,9 @@
 #include <map>
 
 #include "./utils.cpp"
+#include "./vertex.cpp"
 
 using namespace std;
-
-// 頂点
-struct Vertex
-{
-    int id;
-    vector<int> to;
-
-    Vertex(int i, int t)
-    {
-        id = i;
-        to.resize(t);
-    }
-
-    string to_str()
-    {
-        string out;
-        for (int i = 0; i < to.size(); i++)
-        {
-            out += '\t';
-            out += "q_" + to_string(id) + " -> " + "q_" + to_string(to[i]);
-            out += "[label=" + to_string(i) + "]";
-            out += "\n";
-        }
-        return out;
-    }
-};
-
-ostream &operator<<(ostream &os, const Vertex vtx)
-{
-    for (int i = 0; i < vtx.to.size(); i++)
-    {
-        os << "\tq_" << to_string(vtx.id) << " -> " << "q_" << to_string(vtx.to[i]);
-        os << "[label=" << to_string(i) << "]";
-        os << endl;
-    }
-    return os;
-}
 
 int main(int argc, char *argv[])
 {
@@ -59,7 +23,7 @@ int main(int argc, char *argv[])
     string dot_txt = dot_header; // dot言語のコード
 
     // 頂点のtable (id, from, to)
-    vector<Vertex> vtxs(target.size() + 1, Vertex(0, sigma.size()));
+    vector<Vertex> vtxs(target.size(), Vertex(0, sigma.size()));
     for (int i = 0; i < vtxs.size(); i++)
         vtxs[i].id = i;
 
@@ -89,15 +53,16 @@ int main(int argc, char *argv[])
             // 部分文字列が合致したら、頂点を登録
             if (strmap.count(attempt))
             {
-                // attemptが期待文字列と完全に一致していたら、受容ノードへpathを繋ぐ
-                if (attempt == substrs.back())
-                {
-                    vtxs[i].to[j] = 0;
-                }
-                else
-                {
-                    vtxs[i].to[j] = strmap[attempt];
-                }
+                // // attemptが期待文字列と完全に一致していたら、受容ノードへpathを繋ぐ
+                // if (attempt == substrs.back())
+                // {
+                //     vtxs[i].to[j] = 0;
+                // }
+                // else
+                // {
+                //     vtxs[i].to[j] = strmap[attempt];
+                // }
+                vtxs[i].to[j] = strmap[attempt];
             }
             else
             {
@@ -118,7 +83,7 @@ int main(int argc, char *argv[])
     // 頂点tableの内容をlistする
     for (int i = 0; i < vtxs.size(); i++)
     {
-        dot_txt += vtxs[i].to_str() + '\n';
+        dot_txt += vtxs[i].to_str();
     }
     dot_txt += dot_footer;
     write_file("sample.dot", dot_txt);

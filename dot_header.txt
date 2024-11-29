@@ -1,7 +1,6 @@
 digraph qf {
     rankdir = LR;
     graph [label="DFA", fontsize=16];
-    // {rank=same; q_3; q_2;}
 
     input [shape=point, style=invisible];
     //q_3 [label=<q<sub>0</sub>>, shape=doublecircle];
