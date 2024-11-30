@@ -17,8 +17,21 @@ int main(int argc, char *argv[])
     string target = "101101100"; // 入力期待文字列
     string sigma = "01";         // 入力文字集合
 
-    string dot_header = read_file("dot_header.txt"); // dotファイルのheader
-    string dot_footer = read_file("dot_footer.txt"); // dotファイルのfooter
+    if (argc == 2)
+    {
+        target = argv[1];
+    }
+    else if (argc == 3)
+    {
+        targe = argv[1];
+        sigma = argv[2];
+    }
+
+    const string dot_header_path = "./dot_header.txt";
+    const string dot_footer_path = "./dot_footer.txt";
+
+    string dot_header = read_file(dot_header_path); // dotファイルのheader
+    string dot_footer = read_file(dot_footer_path); // dotファイルのfooter
 
     string dot_code = dot_header; // dot言語のコード
 
