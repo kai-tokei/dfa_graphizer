@@ -23,7 +23,7 @@ int main(int argc, char *argv[])
     }
     else if (argc == 3)
     {
-        targe = argv[1];
+        target = argv[1];
         sigma = argv[2];
     }
 

@@ -63,3 +63,4 @@ string gen_node_dot(int id, string name, string shape = "circle")
 {
     return "q_" + to_string(id) + "[label=<q<sub>" + name + "</sub>>,shape=" + shape + "];";
 }
+

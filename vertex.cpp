@@ -1,7 +1,7 @@
 #pragma once
 
-#include <vector>
 #include <iostream>
+#include <vector>
 
 using namespace std;
 
@@ -9,14 +9,22 @@ using namespace std;
 struct Vertex
 {
     int id;
+    string lambda;
+    string sigma;
     vector<int> to;
 
     Vertex(int i, int t)
     {
         id = i;
-        to.resize(t);
+        to.resize(t, 0);
     }
 
+    string get_lambda()
+    {
+        return lambda;
+    }
+
+    // dot言語化
     string to_str()
     {
         string out;
@@ -25,19 +33,9 @@ struct Vertex
             out += "    ";
             out += "q_" + to_string(id) + " -> " + "q_" + to_string(to[i]);
             out += " [label=" + to_string(i) + "];";
+            // out += " " + lambda;
             out += "\n";
         }
         return out;
     }
 };
-
-ostream &operator<<(ostream &os, const Vertex vtx)
-{
-    for (int i = 0; i < vtx.to.size(); i++)
-    {
-        os << "\tq_" << to_string(vtx.id) << " -> " << "q_" << to_string(vtx.to[i]);
-        os << "[label=" << to_string(i) << "]";
-        os << endl;
-    }
-    return os;
-}
